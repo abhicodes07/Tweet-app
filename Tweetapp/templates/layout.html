@@ -32,11 +32,22 @@
                         Search
                     </button>
                 </div>
-
+                
                 <!-- Links and Dropdown -->
                 <div class="flex items-center space-x-4">
-                    <a href="#" class="hover:underline">Home</a>
-                    <a href="#" class="hover:underline">About</a>
+                    <a href="{% url 'tweet_list' %}" class="hover:underline">Home</a>
+                    {% if user.is_authenticated %}
+                    <form method="post" action="{% url 'logout' %}">
+                        {% csrf_token %}
+                        <button 
+                            class="px-4 py-1 bg-white text-red-600 font-medium rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-red-400" type="submit">
+                            Log Out
+                        </button>
+                        </form>
+                    {% else %}
+                    <a href="{% url 'register' %}" class="hover:underline">Register</a>
+                    <a href="{% url 'login' %}" class="hover:underline">Login</a>
+                    {% endif %}
                     <div class="relative group">
                         <button class="flex items-center space-x-1 focus:outline-none">
                             <span>Options</span>
